@@ -686,12 +686,12 @@ function Engagement() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] text-white/40">Your name</label>
                   <input className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
-                    placeholder="Priya Sharma" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                    placeholder="Alex Johnson" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] text-white/40">Email address</label>
                   <input className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
-                    placeholder="priya@example.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                    placeholder="AJ@example.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
                 </div>
               </div>
 
@@ -856,9 +856,9 @@ function Modal({ initial, onClose }: { initial: string; onClose: () => void }) {
 
         <div className="grid grid-cols-2 gap-2 mb-2">
           <div className="flex flex-col gap-1"><label className="text-[11px] text-[#6B5C50]">Your name</label>
-            <input className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="Priya Sharma" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
+            <input className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="Alex Johnson" value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
           <div className="flex flex-col gap-1"><label className="text-[11px] text-[#6B5C50]">Email</label>
-            <input className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="priya@example.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} /></div>
+            <input className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="AJ@example.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} /></div>
         </div>
         <div className="grid grid-cols-2 gap-2 mb-2">
           <div className="flex flex-col gap-1"><label className="text-[11px] text-[#6B5C50]">Event type</label>
