@@ -1,12 +1,6 @@
-export const runtime = "edge";
-
-// @ts-ignore
-import Resend from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-
 export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);  
   const body = await req.json();
   const { name, email, type, guests, date, notes } = body;
 
@@ -23,8 +17,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid guest count" }, { status: 400 });
   }
 
-  try {
-    await resend.emails.send({
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       from: "Lassi Aura <onboarding@resend.dev>",
       to: "hiteshbelide23@gmail.com",
       subject: `New booking enquiry from ${name}`,
@@ -39,11 +38,14 @@ export async function POST(req: NextRequest) {
           <tr><td><strong>Notes</strong></td><td>${notes || "None"}</td></tr>
         </table>
       `,
-    });
+    }),
+  });
 
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.error(err);
+  if (!res.ok) {
+    const err = await res.json();
+    console.error("Resend error:", err);
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
   }
+
+  return NextResponse.json({ success: true }, { status: 200 });
 }
