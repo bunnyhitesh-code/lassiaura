@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 // ── NAVBAR ──────────────────────────────────────────────
 function Navbar() {
@@ -103,8 +104,32 @@ const steps = [
 ];
 
 function HowItWorks() {
+  const router = useRouter();
+  const [showBanner, setShowBanner] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timerRef.current = setTimeout(() => setShowBanner(true), 50);
+        } else {
+          if (timerRef.current) clearTimeout(timerRef.current);
+          setShowBanner(false);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      observer.disconnect();
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
   return (
-    <section id="how" className="px-8 py-14 bg-[#FAF8F4]">
+    <section id="how" ref={sectionRef} className="px-8 py-14 bg-[#FAF8F4] relative overflow-hidden">
       <p className="text-[#C4622D] text-xs tracking-widest uppercase mb-2">How it works</p>
       <h2 className="text-[#0F1A2E] text-2xl font-medium mb-2">Simple from start to finish</h2>
       <p className="text-[#5A6A8A] text-sm leading-relaxed mb-8 max-w-md">
@@ -119,6 +144,31 @@ function HowItWorks() {
           </div>
         ))}
       </div>
+
+      {showBanner && (
+        <button
+          onClick={() => router.push("/how-it-works")}
+          className="mt-8 flex items-center gap-2 text-[#C4622D] text-sm font-medium"
+          style={{ animation: "slideHint 1.8s ease-in-out infinite" }}
+        >
+          <span>Check the full story</span>
+          <span style={{ display: "inline-block", animation: "arrowMove 1.8s ease-in-out infinite" }}>→</span>
+        </button>
+      )}
+
+      <style>{`
+        @keyframes slideHint {
+          0% { opacity: 0; transform: translateX(-24px); }
+          20% { opacity: 1; transform: translateX(0); }
+          70% { opacity: 1; transform: translateX(8px); }
+          100% { opacity: 0; transform: translateX(24px); }
+        }
+        @keyframes arrowMove {
+          0%, 20% { transform: translateX(0); }
+          70% { transform: translateX(6px); }
+          100% { transform: translateX(12px); }
+        }
+      `}</style>
     </section>
   );
 }
@@ -136,7 +186,6 @@ function BookingForm() {
 
   const today = new Date(); today.setHours(0,0,0,0);
   const minDate = new Date(today); minDate.setDate(today.getDate() + 14);
-
   const firstDay = new Date(viewYear, viewMonth, 1).getDay();
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
@@ -148,23 +197,16 @@ function BookingForm() {
       alert("Please fill in name, email, event type, and select a date.");
       return;
     }
-
     try {
       const res = await fetch("/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, date: selectedDate }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.error || "Something went wrong. Please try again.");
-        return;
-      }
-
+      if (!res.ok) { alert(data.error || "Something went wrong. Please try again."); return; }
       setSubmitted(true);
-    } catch (err) {
+    } catch {
       alert("Network error. Please try again.");
     }
   };
@@ -176,9 +218,7 @@ function BookingForm() {
       <p className="text-[#5A6A8A] text-sm leading-relaxed mb-6 max-w-md">
         Select your event date — we&apos;ll confirm within 24 hours.
       </p>
-
       <div className="bg-white border border-[#E4DDD0] rounded-xl p-6 max-w-2xl">
-        {/* Calendar */}
         <div className="flex justify-between items-center mb-3">
           <button onClick={prevMonth} className="w-8 h-8 border border-[#E4DDD0] rounded-lg text-sm text-[#0F1A2E]">‹</button>
           <span className="text-sm font-medium text-[#0F1A2E]">{MONTHS[viewMonth]} {viewYear}</span>
@@ -196,24 +236,18 @@ function BookingForm() {
             const disabled = dateObj < minDate;
             const selected = selectedDate === dateStr;
             return (
-              <button
-                key={day}
-                disabled={disabled}
-                onClick={() => setSelectedDate(dateStr)}
+              <button key={day} disabled={disabled} onClick={() => setSelectedDate(dateStr)}
                 className={`text-xs py-1.5 rounded-lg border
                   ${disabled ? "text-[#C4BAB0] cursor-not-allowed border-transparent" : ""}
                   ${selected ? "bg-[#C4622D] text-white border-[#C4622D]" : ""}
                   ${!disabled && !selected ? "text-[#0F1A2E] border-transparent hover:bg-[#FAECE7]" : ""}
-                `}
-              >
+                `}>
                 {day}
               </button>
             );
           })}
         </div>
         <p className="text-xs text-[#5A6A8A] mb-4">Dates within the next 14 days are unavailable.</p>
-
-        {/* Form fields */}
         <div className="grid grid-cols-2 gap-3 mb-3">
           <div className="flex flex-col gap-1">
             <label className="text-xs text-[#5A6A8A]">Your name</label>
@@ -249,7 +283,6 @@ function BookingForm() {
           <label className="text-xs text-[#5A6A8A]">Additional notes</label>
           <textarea className="text-sm px-3 py-2 border border-[#E4DDD0] rounded-lg bg-[#FAF8F4] text-[#0F1A2E] min-h-[80px] resize-y" placeholder="Location, special requests, dietary requirements..." value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
         </div>
-
         {!submitted ? (
           <button onClick={handleSubmit} className="w-full bg-[#C4622D] text-white py-3 rounded-lg text-sm font-medium">
             Send booking enquiry
