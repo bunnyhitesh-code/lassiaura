@@ -21,5 +21,12 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lassiaura-db",
+      "database_id": "e3dd22e9-3da0-41d9-9384-e95f95b9c033"
+    }
+  ]
 }

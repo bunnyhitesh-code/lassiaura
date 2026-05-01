@@ -603,7 +603,7 @@ function Engagement() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, date: selectedDate, tab }),
       });
-      const data = await res.json();
+      const data = await res.json() as { error?: string };
       if (!res.ok) { alert(data.error || "Something went wrong."); return; }
       setSubmitted(true);
     } catch { alert("Network error. Please try again."); }
@@ -794,7 +794,7 @@ function Modal({ initial, onClose }: { initial: string; onClose: () => void }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, date: selectedDate, package: pkg }),
       });
-      const data = await res.json();
+      const data = await res.json() as { error?: string };
       if (!res.ok) { alert(data.error || "Something went wrong."); return; }
       setSubmitted(true);
     } catch { alert("Network error. Please try again."); }
