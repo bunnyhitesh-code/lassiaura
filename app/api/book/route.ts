@@ -1,6 +1,7 @@
 export const runtime = "edge";
 
-import { Resend } from "resend";
+// @ts-ignore
+import Resend from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
 
