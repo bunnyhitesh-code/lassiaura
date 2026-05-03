@@ -328,16 +328,16 @@ function PourAnimation() {
 
 function BoothVideo() {
   return (
-    <div className="relative w-full h-full">
+    <div className="absolute inset-0 w-full h-full">
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-contain"
+        className="absolute inset-0 w-full h-full object-cover"
         src="/booth.mp4"
       />
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,10,5,0.5) 0%, rgba(15,10,5,0.2) 50%, transparent 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
     </div>
   );
 }
