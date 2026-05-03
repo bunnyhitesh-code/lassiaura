@@ -291,7 +291,7 @@ function SlideAnimation({ id, setRef, onEnded, onLoadedMetadata }: { id: string 
 
 function PourVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div className="absolute inset-0 w-full h-full" style={{ background: "#0F0A05" }}>
       <video
         ref={setRef}
         autoPlay
@@ -299,7 +299,7 @@ function PourVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="absolute inset-0 w-full h-full object-contain"
         src="/order.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
@@ -309,7 +309,7 @@ function PourVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
 
 function BoothVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div className="absolute inset-0 w-full h-full" style={{ background: "#0F0A05" }}>
       <video
         ref={setRef}
         autoPlay
@@ -317,7 +317,7 @@ function BoothVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="absolute inset-0 w-full h-full object-contain"
         src="/booth.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
@@ -327,7 +327,7 @@ function BoothVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
 
 function CrowdVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
-    <div className="absolute inset-0 w-full h-full">
+    <div className="absolute inset-0 w-full h-full" style={{ background: "#0F0A05" }}>
       <video
         ref={setRef}
         autoPlay
@@ -335,7 +335,7 @@ function CrowdVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="absolute inset-0 w-full h-full object-contain"
         src="/craft.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
