@@ -196,14 +196,14 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
 
       <div className="max-w-5xl mx-auto">
         {/* Slide display */}
-        <div className="relative rounded-2xl overflow-hidden mb-6" style={{ height: "420px" }}>
+        <div className="relative rounded-2xl overflow-hidden mb-6" style={{ height: "420px", isolation: "isolate" }}>
           {slides.map((s, i) => (
             <div key={s.id} className="absolute inset-0 transition-opacity duration-1000"
               style={{ opacity: active === i ? 1 : 0 }}>
               <SlideAnimation id={s.id} />
               {/* Overlay */}
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.85) 40%, transparent 100%)" }} />
-              <div className="absolute left-10 top-1/2 -translate-y-1/2 max-w-xs">
+              <div className="absolute left-0 pl-10 top-1/2 -translate-y-1/2 max-w-xs">
                 <span className="inline-block text-[11px] tracking-widest uppercase text-[#C4622D] bg-[#C4622D]/10 border border-[#C4622D]/30 px-3 py-1 rounded-full mb-4">
                   {s.tag}
                 </span>
@@ -330,7 +330,7 @@ function BoothVideo() {
         muted
         loop
         playsInline
-        className="w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         src="/booth.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.88) 38%, rgba(15,10,5,0.4) 65%, transparent 100%)" }} />
