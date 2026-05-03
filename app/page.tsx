@@ -167,7 +167,7 @@ const slides = [
   {
     id: "booth",
     label: "The Experience",
-    price: "from $9",
+    price: "from $10",
     title: "A live premium booth",
     sub: "We set up, we perform. Your guests watch the art happen in real time.",
     tag: "Live booth · Full event",
@@ -175,7 +175,7 @@ const slides = [
   {
     id: "crowd",
     label: "The Craft",
-    price: "from $12",
+    price: "from $15",
     title: "Built around your vision",
     sub: "Custom flavours, branded setup, dedicated coordinator. Fully bespoke.",
     tag: "Bespoke · Your brand",
@@ -392,12 +392,12 @@ const pkgData = [
     features: ["Fresh made to order","4 signature flavours","Minimum 20 glasses","Delivered event-ready"],
   },
   {
-    num: "02", name: "The Experience", price: "from $9", unit: "/ glass (400ml)", featured: true,
+    num: "02", name: "The Experience", price: "from $10", unit: "/ glass (400ml)", featured: true,
     desc: "Live premium booth. We set up, we perform, we pour. Guests watch the craft in real time.",
     features: ["Full live booth setup","Artistic pour techniques","Premium bar-style presentation","We stay the full event"],
   },
   {
-    num: "03", name: "The Craft", price: "from $12", unit: "/ glass (400ml)", featured: false,
+    num: "03", name: "The Craft", price: "from $15", unit: "/ glass (400ml)", featured: false,
     desc: "Fully bespoke. Custom flavours, branded cups, themed booth. Built around your vision.",
     features: ["Everything in The Experience","Custom signature flavour","Branded cups & packaging","Dedicated coordinator"],
   },
@@ -580,8 +580,9 @@ function Engagement() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[11px] text-white/40">Guest count</label>
-                    <input type="number" className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
-                      placeholder="50" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} />
+                    <input type="number" min={50} max={10000} className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
+                      placeholder="Min 50 guests" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} />
+                    <span className="text-[10px] text-white/30">Minimum 50 glasses · Maximum 10,000</span>
                   </div>
                 </div>
               )}
@@ -736,7 +737,8 @@ function Modal({ initial, onClose }: { initial: string; onClose: () => void }) {
               <option value="">Select</option><option>Wedding</option><option>Corporate event</option><option>House party</option><option>Cultural gathering</option><option>Other</option>
             </select></div>
           <div className="flex flex-col gap-1"><label className="text-[11px] text-[#6B5C50]">Guests</label>
-            <input type="number" className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="50" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} /></div>
+            <input type="number" min={50} max={10000} className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008]" placeholder="Min 50 guests" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} />
+            <span className="text-[10px] text-[#6B5C50]">Minimum 50 glasses · Maximum 10,000</span></div>
         </div>
         <div className="flex flex-col gap-1 mb-4"><label className="text-[11px] text-[#6B5C50]">Notes</label>
           <textarea className="text-sm px-3 py-2 border border-[#E8E0D4] rounded-lg bg-white text-[#1B1008] resize-none" rows={2}

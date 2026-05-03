@@ -10,13 +10,13 @@ const pkgData = [
     featured: false,
   },
   {
-    num: "02", name: "The Experience", price: "from $9", unit: "/ glass (400ml)",
+    num: "02", name: "The Experience", price: "from $10", unit: "/ glass (400ml)",
     desc: "A live premium booth. We set up, we perform, we pour. Your guests watch the craft happen in real time.",
     features: ["Live booth setup","Artistic pour techniques on display","Premium bar-style presentation","We stay for the full event","All flavours + seasonal specials"],
     featured: true,
   },
   {
-    num: "03", name: "The Craft", price: "from $12", unit: "/ glass (400ml)",
+    num: "03", name: "The Craft", price: "from $15", unit: "/ glass (400ml)",
     desc: "Fully bespoke. Custom flavours, branded cups, themed booth. Built entirely around your vision.",
     features: ["Everything in The Experience","Custom signature flavour creation","Branded cups & packaging","Themed booth design","Dedicated event coordinator"],
     featured: false,
