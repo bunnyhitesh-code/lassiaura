@@ -299,7 +299,7 @@ function PourVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top"
         src="/order.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
@@ -317,7 +317,7 @@ function BoothVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top"
         src="/booth.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
@@ -335,7 +335,7 @@ function CrowdVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
         playsInline
         onEnded={onEnded}
         onLoadedMetadata={onLoadedMetadata}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top"
         src="/craft.mp4"
       />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
