@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json() as { name?: string; email?: string; type?: string; guests?: number; date?: string; notes?: string };
-  const { name, email, type, guests, date, notes } = body;
+  const body = await req.json() as { name?: string; email?: string; type?: string; guests?: number; date?: string; notes?: string; city?: string; package?: string };
+  const { name, email, type, guests, date, notes, city, package: packageChoice } = body;
 
   if (!name || !email || !type || !date) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -32,8 +32,10 @@ export async function POST(req: NextRequest) {
         <table cellpadding="8" style="border-collapse:collapse;width:100%;">
           <tr><td><strong>Name</strong></td><td>${name}</td></tr>
           <tr><td><strong>Email</strong></td><td>${email}</td></tr>
+          <tr><td><strong>Package</strong></td><td>${packageChoice || "Not specified"}</td></tr>
           <tr><td><strong>Event type</strong></td><td>${type}</td></tr>
           <tr><td><strong>Guest count</strong></td><td>${guests || "Not specified"}</td></tr>
+          <tr><td><strong>City</strong></td><td>${city || "Not specified"}</td></tr>
           <tr><td><strong>Date</strong></td><td>${date}</td></tr>
           <tr><td><strong>Notes</strong></td><td>${notes || "None"}</td></tr>
         </table>

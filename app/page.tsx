@@ -452,7 +452,7 @@ function Engagement() {
   const [viewMonth, setViewMonth] = useState(new Date().getMonth());
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", type: "", guests: "", notes: "" });
+  const [form, setForm] = useState({ name: "", email: "", type: "", guests: "", notes: "", city: "", package: "" });
 
   const today = new Date(); today.setHours(0,0,0,0);
   const minDate = new Date(today); minDate.setDate(today.getDate() + 14);
@@ -551,6 +551,16 @@ function Engagement() {
               )}
 
               {/* Common fields */}
+              <div className="flex flex-col gap-1.5 mb-3">
+                <label className="text-[11px] text-white/40">Package interest</label>
+                <select className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-[#1A1008] text-white focus:border-[#C4622D] outline-none transition-colors"
+                  value={form.package} onChange={e => setForm({...form, package: e.target.value})}>
+                  <option>Not sure yet</option>
+                  <option>The Order — from $6 / glass</option>
+                  <option>The Experience — from $10 / glass</option>
+                  <option>The Craft — from $15 / glass</option>
+                </select>
+              </div>
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] text-white/40">Your name</label>
@@ -565,26 +575,33 @@ function Engagement() {
               </div>
 
               {tab !== "hello" && (
-                <div className="grid grid-cols-2 gap-3 mb-3">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] text-white/40">Event type</label>
-                    <select className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-[#1A1008] text-white focus:border-[#C4622D] outline-none transition-colors"
-                      value={form.type} onChange={e => setForm({...form, type: e.target.value})}>
-                      <option value="">Select</option>
-                      <option>Wedding</option>
-                      <option>Corporate event</option>
-                      <option>House party</option>
-                      <option>Cultural gathering</option>
-                      <option>Other</option>
-                    </select>
+                <>
+                  <div className="grid grid-cols-2 gap-3 mb-3">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[11px] text-white/40">Event type</label>
+                      <select className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-[#1A1008] text-white focus:border-[#C4622D] outline-none transition-colors"
+                        value={form.type} onChange={e => setForm({...form, type: e.target.value})}>
+                        <option value="">Select</option>
+                        <option>Wedding</option>
+                        <option>Corporate event</option>
+                        <option>House party</option>
+                        <option>Cultural gathering</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[11px] text-white/40">Guest count</label>
+                      <input type="number" min={50} max={10000} className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
+                        placeholder="Min 50 guests" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} />
+                      <span className="text-[10px] text-white/30">Minimum 50 glasses · Maximum 10,000</span>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[11px] text-white/40">Guest count</label>
-                    <input type="number" min={50} max={10000} className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
-                      placeholder="Min 50 guests" value={form.guests} onChange={e => setForm({...form, guests: e.target.value})} />
-                    <span className="text-[10px] text-white/30">Minimum 50 glasses · Maximum 10,000</span>
+                  <div className="flex flex-col gap-1.5 mb-3">
+                    <label className="text-[11px] text-white/40">Your city</label>
+                    <input className="text-sm px-3 py-2.5 border border-white/10 rounded-lg bg-white/5 text-white placeholder-white/20 focus:border-[#C4622D] outline-none transition-colors"
+                      placeholder="Austin, TX" value={form.city} onChange={e => setForm({...form, city: e.target.value})} />
                   </div>
-                </div>
+                </>
               )}
 
               <div className="flex flex-col gap-1.5 mb-4">
