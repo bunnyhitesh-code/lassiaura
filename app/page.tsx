@@ -671,9 +671,10 @@ function Modal({ initial, onClose }: { initial: string; onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-16 overflow-y-auto"
-      style={{ background: "rgba(15,10,5,0.9)" }} onClick={onClose}>
-      <div className="bg-[#FAF8F4] rounded-2xl p-6 w-full max-w-md relative max-h-screen overflow-y-auto"
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+      style={{ background: "rgba(15,10,5,0.9)", paddingTop: "72px" }} onClick={onClose}>
+      <div className="bg-[#FAF8F4] rounded-2xl p-6 w-full max-w-md relative overflow-y-auto"
+        style={{ maxHeight: "calc(100vh - 88px)" }}
         onClick={e => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 w-7 h-7 border border-[#E8E0D4] rounded-lg text-sm text-[#6B5C50] hover:bg-[#F2EEE6]">×</button>
 
