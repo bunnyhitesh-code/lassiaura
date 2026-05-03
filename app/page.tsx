@@ -24,7 +24,7 @@ function Navbar({ onBook }: { onBook: () => void }) {
           <circle cx="16" cy="12" r="3" fill="#C4622D"/>
           <path d="M13 20 Q16 23 19 20" stroke="#C4622D" strokeWidth="1" fill="none" strokeLinecap="round"/>
         </svg>
-        <span className="text-white font-medium tracking-widest text-sm">LASSI <span className="text-[#C4622D]">AURA</span></span>
+        <span className="text-white font-medium tracking-widest text-sm whitespace-nowrap">LASSI <span className="text-[#C4622D]">AURA</span></span>
       </div>
       <div className="hidden md:flex gap-8 text-xs text-white/50 tracking-widest uppercase">
         <a href="#experience" className="hover:text-white transition-colors">Experience</a>
@@ -671,9 +671,9 @@ function Modal({ initial, onClose }: { initial: string; onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-16 overflow-y-auto"
       style={{ background: "rgba(15,10,5,0.9)" }} onClick={onClose}>
-      <div className="bg-[#FAF8F4] rounded-2xl p-6 w-full max-w-md relative max-h-[90vh] overflow-y-auto"
+      <div className="bg-[#FAF8F4] rounded-2xl p-6 w-full max-w-md relative max-h-screen overflow-y-auto"
         onClick={e => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 w-7 h-7 border border-[#E8E0D4] rounded-lg text-sm text-[#6B5C50] hover:bg-[#F2EEE6]">×</button>
 
