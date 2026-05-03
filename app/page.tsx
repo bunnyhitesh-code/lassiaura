@@ -54,7 +54,7 @@ function Hero({ onBook }: { onBook: () => void }) {
       </div>
 
       <div className="relative z-10 text-center px-8 max-w-3xl mx-auto">
-        <p className="text-[#C4622D] text-[11px] tracking-[0.25em] uppercase mb-6">Premium lassi catering · Statewide</p>
+        <p className="text-[#C4622D] text-[11px] tracking-[0.25em] uppercase mb-6">Premium lassi catering · At your event</p>
         <h1 className="text-white font-medium leading-tight mb-6" style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)" }}>
           The art of lassi,<br />live at your event
         </h1>
@@ -373,7 +373,7 @@ function SocialProof() {
       </div>
       {/* Trust badges */}
       <div className="flex flex-wrap justify-center gap-6 mt-12">
-        {["Statewide service","Premium ingredients","Live at your event","24hr confirmation"].map(b => (
+        {["Nationwide service","Premium ingredients","Live at your event","24hr confirmation"].map(b => (
           <div key={b} className="flex items-center gap-2 text-[#6B5C50] text-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C4622D]" />
             {b}
