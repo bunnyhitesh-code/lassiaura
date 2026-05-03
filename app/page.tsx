@@ -184,10 +184,26 @@ const slides = [
 
 function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
   const [active, setActive] = useState(0);
+  const [duration, setDuration] = useState(5);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
+  const activeRef = useRef(0);
+  activeRef.current = active;
+
+  const advance = () => setActive(a => (a + 1) % slides.length);
+
   useEffect(() => {
-    const t = setInterval(() => setActive(a => (a + 1) % slides.length), 5000);
-    return () => clearInterval(t);
-  }, []);
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+        if (!isNaN(v.duration)) setDuration(v.duration);
+      } else {
+        v.pause();
+        v.currentTime = 0;
+      }
+    });
+  }, [active]);
 
   return (
     <section id="experience" className="bg-[#0F0A05] py-24 px-8">
@@ -200,7 +216,16 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
           {slides.map((s, i) => (
             <div key={s.id} className="absolute inset-0 transition-opacity duration-1000"
               style={{ opacity: active === i ? 1 : 0 }}>
-              <SlideAnimation id={s.id} />
+              <SlideAnimation
+                id={s.id}
+                setRef={(el) => { videoRefs.current[i] = el; }}
+                onEnded={advance}
+                onLoadedMetadata={() => {
+                  if (i !== activeRef.current) return;
+                  const v = videoRefs.current[i];
+                  if (v) setDuration(v.duration);
+                }}
+              />
               {/* Overlay */}
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,10,5,0.85) 0%, rgba(15,10,5,0.3) 50%, transparent 100%)" }} />
               <div className="absolute bottom-8 left-0 right-0 px-10">
@@ -232,7 +257,7 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
               {/* Progress bar */}
               {active === i && (
                 <div className="mt-3 h-0.5 bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-[#C4622D] rounded-full" style={{ animation: "progress 5s linear forwards" }} />
+                  <div className="h-full bg-[#C4622D] rounded-full" style={{ animation: `progress ${duration}s linear forwards` }} />
                 </div>
               )}
             </button>
@@ -251,20 +276,29 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
 }
 
 // ── SLIDE ANIMATIONS ──────────────────────────────────────
-function SlideAnimation({ id }: { id: string }) {
-  if (id === "pour") return <PourVideo />;
-  if (id === "booth") return <BoothVideo />;
-  return <CrowdVideo />;
+interface VideoSlideProps {
+  setRef: (el: HTMLVideoElement | null) => void;
+  onEnded: () => void;
+  onLoadedMetadata: () => void;
 }
 
-function PourVideo() {
+function SlideAnimation({ id, setRef, onEnded, onLoadedMetadata }: { id: string } & VideoSlideProps) {
+  const p: VideoSlideProps = { setRef, onEnded, onLoadedMetadata };
+  if (id === "pour") return <PourVideo {...p} />;
+  if (id === "booth") return <BoothVideo {...p} />;
+  return <CrowdVideo {...p} />;
+}
+
+function PourVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
     <div className="absolute inset-0 w-full h-full">
       <video
+        ref={setRef}
         autoPlay
         muted
-        loop
         playsInline
+        onEnded={onEnded}
+        onLoadedMetadata={onLoadedMetadata}
         className="absolute inset-0 w-full h-full object-cover"
         src="/order.mp4"
       />
@@ -273,14 +307,16 @@ function PourVideo() {
   );
 }
 
-function BoothVideo() {
+function BoothVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
     <div className="absolute inset-0 w-full h-full">
       <video
+        ref={setRef}
         autoPlay
         muted
-        loop
         playsInline
+        onEnded={onEnded}
+        onLoadedMetadata={onLoadedMetadata}
         className="absolute inset-0 w-full h-full object-cover"
         src="/booth.mp4"
       />
@@ -289,14 +325,16 @@ function BoothVideo() {
   );
 }
 
-function CrowdVideo() {
+function CrowdVideo({ setRef, onEnded, onLoadedMetadata }: VideoSlideProps) {
   return (
     <div className="absolute inset-0 w-full h-full">
       <video
+        ref={setRef}
         autoPlay
         muted
-        loop
         playsInline
+        onEnded={onEnded}
+        onLoadedMetadata={onLoadedMetadata}
         className="absolute inset-0 w-full h-full object-cover"
         src="/craft.mp4"
       />
