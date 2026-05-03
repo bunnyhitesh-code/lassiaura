@@ -252,76 +252,23 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
 
 // ── SLIDE ANIMATIONS ──────────────────────────────────────
 function SlideAnimation({ id }: { id: string }) {
-  if (id === "pour") return <PourAnimation />;
+  if (id === "pour") return <PourVideo />;
   if (id === "booth") return <BoothVideo />;
-  return <CrowdAnimation />;
+  return <CrowdVideo />;
 }
 
-function PourAnimation() {
+function PourVideo() {
   return (
-    <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #1A0D05 0%, #2D1508 50%, #1A0D05 100%)" }}>
-      <style>{`
-        @keyframes pourStream {
-          0%, 100% { height: 0px; opacity: 0; }
-          10% { opacity: 1; }
-          60% { height: 120px; opacity: 1; }
-          80% { height: 120px; opacity: 0; }
-        }
-        @keyframes liquidRise {
-          0% { transform: translateY(100%); }
-          100% { transform: translateY(20%); }
-        }
-        @keyframes ripple {
-          0% { transform: scale(0); opacity: 0.8; }
-          100% { transform: scale(3); opacity: 0; }
-        }
-        @keyframes particleFloat {
-          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-          100% { transform: translateY(-80px) rotate(360deg); opacity: 0; }
-        }
-      `}</style>
-      <div className="relative">
-        {/* Main glass */}
-        <svg width="160" height="240" viewBox="0 0 160 240">
-          <defs>
-            <clipPath id="pourGlass">
-              <path d="M30 20 L15 220 Q15 235 35 235 L125 235 Q145 235 145 220 L130 20 Z" />
-            </clipPath>
-            <linearGradient id="liquidGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#E8A87C" />
-              <stop offset="100%" stopColor="#C4622D" />
-            </linearGradient>
-          </defs>
-          {/* Glass */}
-          <path d="M30 20 L15 220 Q15 235 35 235 L125 235 Q145 235 145 220 L130 20 Z"
-            fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" />
-          {/* Liquid */}
-          <g clipPath="url(#pourGlass)">
-            <rect x="0" y="0" width="160" height="240" fill="url(#liquidGrad)"
-              style={{ animation: "liquidRise 4s ease-out infinite" }} />
-            {/* Foam */}
-            <ellipse cx="80" cy="80" rx="52" ry="10" fill="rgba(250,240,230,0.9)" />
-            {/* Bubbles */}
-            {[20,50,90,120].map((x,i) => (
-              <circle key={i} cx={x} cy={120+i*20} r="3" fill="rgba(255,255,255,0.3)"
-                style={{ animation: `particleFloat ${1+i*0.3}s ease-out infinite`, animationDelay: `${i*0.4}s` }} />
-            ))}
-          </g>
-          {/* Pour stream */}
-          <rect x="77" y="0" width="6" rx="3" fill="rgba(196,98,45,0.9)"
-            style={{ animation: "pourStream 4s ease-in-out infinite" }} />
-          {/* Ripple */}
-          <ellipse cx="80" cy="175" rx="20" ry="5" fill="none" stroke="rgba(196,98,45,0.5)" strokeWidth="1"
-            style={{ animation: "ripple 2s ease-out infinite" }} />
-          {/* Shine */}
-          <path d="M40 30 L35 200" stroke="rgba(255,255,255,0.12)" strokeWidth="4" strokeLinecap="round" />
-        </svg>
-        {/* Decorative dots */}
-        {[-60,60,-80,80].map((x,i) => (
-          <div key={i} className="absolute w-1.5 h-1.5 rounded-full bg-[#C4622D]/60"
-            style={{ left: `calc(50% + ${x}px)`, top: `${30+i*20}%`, animation: `particleFloat ${2+i*0.5}s ease-out infinite`, animationDelay: `${i*0.6}s` }} />
-        ))}
-      </div>
+    <div className="absolute inset-0 w-full h-full">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/order.mp4"
+      />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
     </div>
   );
 }
@@ -342,82 +289,18 @@ function BoothVideo() {
   );
 }
 
-function CrowdAnimation() {
+function CrowdVideo() {
   return (
-    <div className="w-full h-full flex items-center justify-center overflow-hidden" style={{ background: "linear-gradient(135deg, #0D0805 0%, #1F1208 50%, #0D0805 100%)" }}>
-      <style>{`
-        @keyframes sway {
-          0%, 100% { transform: rotate(-2deg); }
-          50% { transform: rotate(2deg); }
-        }
-        @keyframes clink {
-          0%, 90%, 100% { transform: translateY(0); }
-          95% { transform: translateY(-8px); }
-        }
-        @keyframes ambientShift {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.6; transform: scale(1.1); }
-        }
-        @keyframes confetti {
-          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-          100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
-        }
-      `}</style>
-      <svg width="500" height="380" viewBox="0 0 500 380">
-        <defs>
-          <radialGradient id="crowdGlow1" cx="30%" cy="60%" r="30%">
-            <stop offset="0%" stopColor="#C4622D" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          <radialGradient id="crowdGlow2" cx="70%" cy="60%" r="30%">
-            <stop offset="0%" stopColor="#E8A87C" stopOpacity="0.2" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-        </defs>
-        {/* Ambient lights */}
-        <rect x="0" y="0" width="500" height="380" fill="url(#crowdGlow1)" style={{ animation: "ambientShift 4s ease-in-out infinite" }} />
-        <rect x="0" y="0" width="500" height="380" fill="url(#crowdGlow2)" style={{ animation: "ambientShift 4s ease-in-out infinite", animationDelay: "2s" }} />
-        {/* Floor */}
-        <rect x="0" y="300" width="500" height="80" fill="rgba(196,98,45,0.05)" />
-        {/* Crowd silhouettes */}
-        {[
-          { x: 60, h: 120, w: 36, delay: 0 },
-          { x: 120, h: 140, w: 38, delay: 0.3 },
-          { x: 185, h: 125, w: 34, delay: 0.6 },
-          { x: 245, h: 145, w: 40, delay: 0.9 },
-          { x: 310, h: 130, w: 36, delay: 0.4 },
-          { x: 375, h: 142, w: 38, delay: 0.7 },
-          { x: 430, h: 120, w: 34, delay: 0.2 },
-        ].map((p, i) => (
-          <g key={i} style={{ animation: `sway ${3+i*0.3}s ease-in-out infinite`, transformOrigin: `${p.x}px 300px`, animationDelay: `${p.delay}s` }}>
-            {/* Body */}
-            <rect x={p.x - p.w/2} y={300 - p.h} width={p.w} height={p.h} rx="6"
-              fill={`rgba(255,255,255,${0.08+i*0.01})`} />
-            {/* Head */}
-            <circle cx={p.x} cy={300 - p.h - 18} r="16" fill={`rgba(255,255,255,${0.1+i*0.01})`} />
-            {/* Glass in hand */}
-            <g style={{ animation: `clink 4s ease-in-out infinite`, animationDelay: `${p.delay}s` }}>
-              <path d={`M${p.x+8} ${300-p.h+30} L${p.x+4} ${300-p.h+55} L${p.x+20} ${300-p.h+55} L${p.x+16} ${300-p.h+30} Z`}
-                fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
-              <rect x={p.x+5} y={300-p.h+35} width="14" height="12"
-                fill={`rgba(196,98,45,${0.6+i*0.05})`} />
-            </g>
-          </g>
-        ))}
-        {/* Confetti */}
-        {[80,150,220,300,370,440].map((x,i) => (
-          <rect key={i} x={x} y={-10} width="6" height="6" rx="1"
-            fill={i%2===0 ? "#C4622D" : "rgba(255,255,255,0.6)"}
-            style={{ animation: `confetti ${3+i*0.5}s linear infinite`, animationDelay: `${i*0.8}s` }} />
-        ))}
-        {/* Festive lights string */}
-        <path d="M0 60 Q125 90 250 60 Q375 30 500 60" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-        {[40,100,160,220,280,340,400,460].map((x,i) => (
-          <circle key={i} cx={x} cy={60 + Math.sin(x/80)*15} r="4"
-            fill={i%2===0 ? "rgba(196,98,45,0.8)" : "rgba(255,220,150,0.8)"}
-            style={{ animation: `glowPulse ${1.5+i*0.2}s ease-in-out infinite`, animationDelay: `${i*0.25}s` }} />
-        ))}
-      </svg>
+    <div className="absolute inset-0 w-full h-full">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/craft.mp4"
+      />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.75) 35%, rgba(15,10,5,0.2) 70%, transparent 100%)" }} />
     </div>
   );
 }
