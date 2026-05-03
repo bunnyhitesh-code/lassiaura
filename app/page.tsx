@@ -249,7 +249,7 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
 // ── SLIDE ANIMATIONS ──────────────────────────────────────
 function SlideAnimation({ id }: { id: string }) {
   if (id === "pour") return <PourAnimation />;
-  if (id === "booth") return <BoothAnimation />;
+  if (id === "booth") return <BoothVideo />;
   return <CrowdAnimation />;
 }
 
@@ -322,74 +322,18 @@ function PourAnimation() {
   );
 }
 
-function BoothAnimation() {
+function BoothVideo() {
   return (
-    <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #0A0F1A 0%, #151F35 50%, #0A0F1A 100%)" }}>
-      <style>{`
-        @keyframes glowPulse {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
-        }
-        @keyframes glassShine {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(400%); }
-        }
-        @keyframes lampSwing {
-          0%, 100% { transform: rotate(-5deg); }
-          50% { transform: rotate(5deg); }
-        }
-        @keyframes floatUp {
-          0% { transform: translateY(0); opacity: 1; }
-          100% { transform: translateY(-20px); opacity: 0; }
-        }
-      `}</style>
-      <svg width="420" height="320" viewBox="0 0 420 320">
-        <defs>
-          <radialGradient id="boothGlow" cx="50%" cy="80%" r="50%">
-            <stop offset="0%" stopColor="#C4622D" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-        </defs>
-        {/* Ambient glow */}
-        <rect x="0" y="0" width="420" height="320" fill="url(#boothGlow)" />
-        {/* Bar counter */}
-        <rect x="60" y="200" width="300" height="12" rx="3" fill="#2A1A08" stroke="rgba(196,98,45,0.4)" strokeWidth="1" />
-        <rect x="55" y="212" width="310" height="60" rx="4" fill="#1A0D05" stroke="rgba(196,98,45,0.2)" strokeWidth="1" />
-        {/* Counter top shine */}
-        <rect x="60" y="200" width="300" height="3" rx="2" fill="rgba(196,98,45,0.3)" />
-        {/* Hanging lamp */}
-        <line x1="210" y1="0" x2="210" y2="80" stroke="rgba(255,255,255,0.2)" strokeWidth="1"
-          style={{ transformOrigin: "210px 0", animation: "lampSwing 4s ease-in-out infinite" }} />
-        <ellipse cx="210" cy="85" rx="25" ry="12" fill="#C4622D" opacity="0.9"
-          style={{ transformOrigin: "210px 0", animation: "lampSwing 4s ease-in-out infinite" }} />
-        <ellipse cx="210" cy="150" rx="80" ry="40" fill="rgba(196,98,45,0.15)"
-          style={{ animation: "glowPulse 3s ease-in-out infinite" }} />
-        {/* Glasses on counter */}
-        {[120,175,230,285,340].map((x, i) => (
-          <g key={i}>
-            <path d={`M${x-8} 170 L${x-12} 200 L${x+12} 200 L${x+8} 170 Z`}
-              fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-            <rect x={x-10} y={178} width="20" height={12+i*2}
-              fill={`rgba(196,98,45,${0.4+i*0.1})`}
-              style={{ clipPath: `inset(0 0 0 0)` }} />
-          </g>
-        ))}
-        {/* Attendant silhouette */}
-        <ellipse cx="210" cy="165" rx="16" ry="16" fill="rgba(255,255,255,0.15)" />
-        <rect x="196" y="181" width="28" height="40" rx="4" fill="rgba(255,255,255,0.1)" />
-        {/* Steam wisps */}
-        {[130,210,300].map((x,i) => (
-          <path key={i} d={`M${x} 175 Q${x+5} 165 ${x} 155`}
-            fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2"
-            style={{ animation: `floatUp ${1.5+i*0.5}s ease-out infinite`, animationDelay: `${i*0.7}s` }} />
-        ))}
-        {/* LASSI AURA sign */}
-        <rect x="150" y="100" width="120" height="28" rx="4" fill="rgba(196,98,45,0.15)" stroke="rgba(196,98,45,0.4)" strokeWidth="1" />
-        <text x="210" y="119" textAnchor="middle" fill="rgba(196,98,45,0.9)" fontSize="11" fontWeight="500" letterSpacing="3">LASSI AURA</text>
-        {/* Bottle */}
-        <rect x="345" y="150" width="18" height="50" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-        <rect x="349" y="145" width="10" height="10" rx="2" fill="rgba(255,255,255,0.1)" />
-      </svg>
+    <div className="relative w-full h-full">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="w-full h-full object-cover"
+        src="/booth.mp4"
+      />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.88) 38%, rgba(15,10,5,0.4) 65%, transparent 100%)" }} />
     </div>
   );
 }
