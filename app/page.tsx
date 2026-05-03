@@ -202,17 +202,21 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
               style={{ opacity: active === i ? 1 : 0 }}>
               <SlideAnimation id={s.id} />
               {/* Overlay */}
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.85) 40%, transparent 100%)" }} />
-              <div className="absolute left-0 pl-10 top-1/2 -translate-y-1/2 max-w-xs">
-                <span className="inline-block text-[11px] tracking-widest uppercase text-[#C4622D] bg-[#C4622D]/10 border border-[#C4622D]/30 px-3 py-1 rounded-full mb-4">
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,10,5,0.85) 0%, rgba(15,10,5,0.3) 50%, transparent 100%)" }} />
+              <div className="absolute bottom-8 left-0 right-0 px-10">
+                <span className="inline-block text-[11px] tracking-widest uppercase text-[#C4622D] bg-[#C4622D]/10 border border-[#C4622D]/30 px-3 py-1 rounded-full mb-3">
                   {s.tag}
                 </span>
-                <h3 className="text-white text-2xl font-medium mb-3">{s.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed mb-6">{s.sub}</p>
-                <button onClick={() => onBook(s.label)}
-                  className="bg-[#C4622D] text-white text-sm font-medium px-6 py-2.5 rounded-lg hover:bg-[#A8501F] transition-colors">
-                  Book {s.label}
-                </button>
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <h3 className="text-white text-2xl font-medium mb-1">{s.title}</h3>
+                    <p className="text-white/55 text-sm leading-relaxed">{s.sub}</p>
+                  </div>
+                  <button onClick={() => onBook(s.label)}
+                    className="flex-shrink-0 bg-[#C4622D] text-white text-sm font-medium px-6 py-2.5 rounded-lg hover:bg-[#A8501F] transition-colors">
+                    Book {s.label}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -330,10 +334,10 @@ function BoothVideo() {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain"
         src="/booth.mp4"
       />
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,10,5,0.88) 38%, rgba(15,10,5,0.4) 65%, transparent 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,10,5,0.5) 0%, rgba(15,10,5,0.2) 50%, transparent 100%)" }} />
     </div>
   );
 }
