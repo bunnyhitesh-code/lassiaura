@@ -56,14 +56,14 @@ function Hero({ onBook }: { onBook: () => void }) {
       <div className="relative z-10 text-center px-8 max-w-3xl mx-auto">
         <p className="text-[#C4622D] text-[11px] tracking-[0.25em] uppercase mb-6">Premium lassi catering · At your event</p>
         <h1 className="text-white font-medium leading-tight mb-6" style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)" }}>
-          The art of lassi,<br />live at your event
+          Experience the real aura with Lassi Aura.
         </h1>
         <p className="text-white/50 text-base leading-relaxed max-w-xl mx-auto mb-10">
-          From a beautifully crafted single glass to a full live premium booth — we bring the culture, craft, and flavour of authentic lassi to your gathering.
+          Not every event gets Lassi Aura. Yours might.
         </p>
         <div className="flex gap-3 justify-center flex-wrap mb-8">
           <button onClick={onBook} className="bg-[#C4622D] text-white px-10 py-3.5 rounded-lg text-sm font-medium hover:bg-[#A8501F] transition-colors">
-            Book your event
+            Request the Aura
           </button>
           <a href="#experience">
             <button className="border border-white/20 text-white/80 px-10 py-3.5 rounded-lg text-sm hover:border-white/40 transition-colors">
@@ -208,7 +208,7 @@ function VideoSlider({ onBook }: { onBook: (pkg: string) => void }) {
   return (
     <section id="experience" className="bg-[#0F0A05] py-24 px-8">
       <p className="text-[#C4622D] text-[11px] tracking-[0.2em] uppercase mb-3 text-center">The experience</p>
-      <h2 className="text-white text-3xl font-medium text-center mb-16">Three ways to experience Lassi Aura</h2>
+      <h2 className="text-white text-3xl font-medium text-center mb-16">Three levels of the Aura</h2>
 
       <div className="max-w-5xl mx-auto">
         {/* Slide display */}
@@ -435,7 +435,7 @@ function Packages({ onBook }: { onBook: (pkg: string) => void }) {
             </ul>
             <button onClick={() => onBook(p.name)}
               className={`w-full py-3 rounded-xl text-sm font-medium transition-colors ${p.featured ? "bg-[#C4622D] text-white hover:bg-[#A8501F]" : "bg-[#1B1008] text-white hover:bg-[#2D1A08]"}`}>
-              Book {p.name}
+              Request {p.name}
             </button>
           </div>
         ))}
@@ -613,9 +613,12 @@ function Engagement() {
                   value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
               </div>
 
+              <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.5)", textAlign: "center", marginBottom: "12px" }}>
+                We confirm within 24 hours. Not all dates are available.
+              </p>
               <button onClick={handleSubmit} disabled={loading}
                 className="w-full bg-[#C4622D] text-white py-3 rounded-xl text-sm font-medium hover:bg-[#A8501F] transition-colors disabled:opacity-60">
-                {loading ? "Sending..." : tab === "book" ? "Send booking enquiry" : tab === "quote" ? "Request a quote" : "Send message"}
+                {loading ? "Sending..." : tab === "book" ? "Request the Aura" : tab === "quote" ? "Request a quote" : "Send message"}
               </button>
             </>
           )}
@@ -650,6 +653,56 @@ function Footer() {
         <a href="#engage" className="hover:text-white/50 transition-colors">Book</a>
       </div>
     </footer>
+  );
+}
+
+// ── AURA IS ───────────────────────────────────────────────
+function AuraIs() {
+  return (
+    <section style={{ background: "#0F0A05", paddingTop: "80px", paddingBottom: "80px" }}>
+      <div style={{ maxWidth: "640px", margin: "0 auto", padding: "0 32px", textAlign: "center" }}>
+        <p style={{ fontSize: "2.5rem", color: "#C4622D", fontWeight: "bold", marginBottom: "24px" }}>
+          The Aura is the event.
+        </p>
+        <p style={{ fontSize: "1rem", color: "#FAF8F4", lineHeight: 1.8, marginBottom: "16px" }}>
+          When Lassi Aura arrives, the room changes. People notice. They photograph it. They ask who organised it. The event becomes more valuable because we are in it.
+        </p>
+        <p style={{ fontSize: "0.9rem", color: "rgba(250,248,244,0.5)", fontStyle: "italic" }}>
+          We are not a catering company. We are the detail that elevates everything around us.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ── AURA IS SELECTIVE ─────────────────────────────────────
+const auraSelectiveLines = [
+  "Not mass market. We serve specific events — not every party that asks.",
+  "Not cheap. Premium is not a price point. It is a standard we never drop.",
+  "Not available to everyone. The right event gets Lassi Aura.",
+  "Not grab and go. We are not McDonald's. We never will be.",
+  "Not just a drink at your event. We are the moment people remember most.",
+];
+
+function AuraIsSelective() {
+  return (
+    <section style={{ background: "#0F0A05", paddingTop: "80px", paddingBottom: "80px" }}>
+      <div style={{ textAlign: "center", padding: "0 32px" }}>
+        <h2 style={{ fontSize: "1.75rem", color: "#C4622D", fontWeight: "bold", marginBottom: "40px", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+          The Aura is selective.
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          {auraSelectiveLines.map((line, i) => (
+            <p key={i} style={{ fontSize: "0.95rem", color: "rgba(250,248,244,0.7)", fontStyle: "italic", textAlign: "center" }}>
+              {line}
+            </p>
+          ))}
+        </div>
+        <p style={{ fontSize: "1rem", color: "#C4622D", marginTop: "48px", letterSpacing: "0.1em" }}>
+          Experience the real aura with Lassi Aura.
+        </p>
+      </div>
+    </section>
   );
 }
 
@@ -787,10 +840,12 @@ export default function Home() {
       {modalPkg && <Modal initial={modalPkg} onClose={closeModal} />}
       <Navbar onBook={() => openModal("The Experience")} />
       <Hero onBook={() => openModal("The Experience")} />
+      <AuraIs />
       <VideoSlider onBook={openModal} />
       <SocialProof />
       <Packages onBook={openModal} />
       <Engagement />
+      <AuraIsSelective />
       <Footer />
     </main>
   );
